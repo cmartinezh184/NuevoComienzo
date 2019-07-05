@@ -19,11 +19,18 @@ namespace NuevoComienzo.Controllers
         {
             return View();
         }
-        public IActionResult Courses()
+        public IActionResult Programs()
         {
             return View();
         }
-
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        public IActionResult Volunteering()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
