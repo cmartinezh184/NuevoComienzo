@@ -300,11 +300,11 @@ namespace NuevoComienzo.Models
 
             modelBuilder.Entity<TipoIdentificador>(entity =>
             {
-                entity.HasKey(e => e.TipoIdentificador1);
+                entity.HasKey(e => e.TipoIdentificadorID);
 
                 entity.ToTable("Tipo_Identificador");
 
-                entity.Property(e => e.TipoIdentificador1).HasColumnName("Tipo_Identificador");
+                entity.Property(e => e.TipoIdentificadorID).HasColumnName("Tipo_Identificador");
 
                 entity.Property(e => e.DescTipoIdentificador)
                     .HasColumnName("DescTipo_Identificador")

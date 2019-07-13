@@ -10,7 +10,7 @@ namespace NuevoComienzo.Models
             Identificador = new HashSet<Identificador>();
         }
 
-        public byte TipoIdentificador1 { get; set; }
+        public byte TipoIdentificadorID { get; set; }
         public string DescTipoIdentificador { get; set; }
 
         public virtual ICollection<Identificador> Identificador { get; set; }

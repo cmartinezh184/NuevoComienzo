@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NuevoComienzo.Models;
 
 namespace NuevoComienzo.Data
 {
@@ -12,5 +13,6 @@ namespace NuevoComienzo.Data
             : base(options)
         {
         }
+        public DbSet<NuevoComienzo.Models.Persona> Persona { get; set; }
     }
 }
