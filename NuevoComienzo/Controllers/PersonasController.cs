@@ -54,7 +54,7 @@ namespace NuevoComienzo.Controllers
             ViewData["AnotacionId"] = new SelectList(_context.Set<Anotacion>(), "AnotacionId", "AnotacionId");
             ViewData["DireccionId"] = new SelectList(_context.Set<Direccion>(), "DireccionId", "DireccionId");
             ViewData["IdentificadorId"] = new SelectList(_context.Set<Identificador>(), "IdentificadorId", "IdentificadorId");
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "TipoPersonaId");
+            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "DescTipoPersona");
             return View();
         }
 
