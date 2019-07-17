@@ -27,7 +27,7 @@ namespace NuevoComienzo.Controllers
         {
             return View();
         }
-        public IActionResult Volunteering()
+        public IActionResult Gallery()
         {
             return View();
         }
