@@ -7681,14 +7681,15 @@ textarea.form-control {
   .featured-donate.overlay-color, .featured-donate.overlay-color-2, .featured-section.overlay-color, .featured-section.overlay-color-2 {
     position: relative; }
     .featured-donate.overlay-color:before, .featured-donate.overlay-color-2:before, .featured-section.overlay-color:before, .featured-section.overlay-color-2:before {
-      position: absolute;
-      content: "";
-      background: #28a745;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      opacity: .9; }
+        position: absolute;
+        content: "";
+        background: #90D2D2;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        opacity: .9;
+    }
   .featured-donate.overlay-color-2:before, .featured-section.overlay-color-2:before {
     background: #79ccab; }
 
@@ -7759,6 +7760,7 @@ textarea.form-control {
 .footer {
   background: #404040;
   padding: 10px 0;
+  margin-top:-17px;
   color: #fff; }
   .footer .heading-section {
     font-size: 20px;
