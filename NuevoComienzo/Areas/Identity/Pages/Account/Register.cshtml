@@ -14,20 +14,24 @@
     <div class="row">
         <div class="col-md-4">
             <section>
+                <!---Formulario-->
                 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <h6>Crea una cuenta</h6>
                     <hr />
                     <div asp-validation-summary="All" class="text-danger"></div>
+                    <!---Correo-->
                     <div class="form-group">
                         <label asp-for="Input.Email">Correo Electrónico</label>
                         <input asp-for="Input.Email" class="form-control" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
+                    <!---Contraseña-->
                     <div class="form-group">
                         <label asp-for="Input.Password">Contraseña</label>
                         <input asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
+                    <!---Boton Confirmar-->
                     <div class="form-group">
                         <label asp-for="Input.ConfirmPassword">Confirmar Contraseña</label>
                         <input asp-for="Input.ConfirmPassword" class="form-control" />
@@ -37,6 +41,7 @@
                 </form>
             </section>
         </div>
+        <!---Texto Bienvenido Registrarse-->
         <div class="col-md-6 col-md-offset-2" style="padding-left:70px;">
             <section>
                 <h4>Fundaci&oacute;n Un Nuevo Comienzo</h4>
