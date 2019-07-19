@@ -10,6 +10,20 @@
     <Content Remove="Views\Home\AboutUs.cshtml" />
     <Content Remove="Views\Home\Gallery.cshtml" />
     <Content Remove="Views\Home\Index.cshtml" />
+    <Content Remove="wwwroot\images\bg_1.jpg" />
+    <Content Remove="wwwroot\images\bg_2.jpg" />
+    <Content Remove="wwwroot\images\bg_3.jpg" />
+    <Content Remove="wwwroot\images\comedor.jpg" />
+    <Content Remove="wwwroot\images\dance.jpeg" />
+    <Content Remove="wwwroot\images\img_2.jpg" />
+    <Content Remove="wwwroot\images\img_3.jpg" />
+    <Content Remove="wwwroot\images\img_4.jpg" />
+    <Content Remove="wwwroot\images\img_5.jpg" />
+    <Content Remove="wwwroot\images\img_6.jpg" />
+    <Content Remove="wwwroot\images\person_1.jpg" />
+    <Content Remove="wwwroot\images\person_2.jpg" />
+    <Content Remove="wwwroot\images\person_3.jpg" />
+    <Content Remove="wwwroot\images\person_4.jpg" />
   </ItemGroup>
 
   <ItemGroup>
