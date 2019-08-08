@@ -7,8 +7,8 @@
         text-align: center;
     }
 
-    form{
-        padding:10px;
+    form {
+        padding: 10px;
     }
 
     .grid-container {
@@ -17,27 +17,35 @@
     }
 
     .mapWrapper {
-    position: relative;
-    /*
+        position: relative;
+        /*
     Do math with the height of your iframe divided by the width, then converted to percent
     In this example the height is 400 and the width is 600
     400 / 600 = .66666667
     which is 66.6666667% */
-    padding-bottom: 66.6666667%;
-    height: 0;
+        padding-bottom: 66.6666667%;
+        height: 0;
+    }
 
-}
-.mapWrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-}
-
+        .mapWrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+        }
 </style>
+
+<!-- code section -->
+<script runat="server">
+
+    private void convertoupper(object sender, EventArgs e)
+    {
+       string str = mytext.Value;
+       changed_text.InnerHtml = str.ToUpper();
+    }
+</script>
 
 
 <!--Codigo para Form de Contáctenos-->
@@ -98,7 +106,36 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62877.85089665521!2d-84.141843!3d9.945132!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5a68d3f183c42ff2!2sFundaci%C3%B3n+Un+Nuevo+Comienzo!5e0!3m2!1sen!2scr!4v1564108109498!5m2!1sen!2scr" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
 
+    <a href="htmlpage.html">HTML Page</a>
+    <a asp-controller="Home" asp-action="AboutUs">cshtml Page</a>
+
+    <!--href="/View.cshtml" -->
+
 
 </div>
+
+<form id="form1" runat="server">
+    <div style="padding: 100px 0 0 250px;">
+
+
+        <div id="login-box">
+
+            <H2>Login</H2>
+
+            <br />
+            <br />
+            <div id="login-box-name" style="margin-top:20px;">UserName:</div><div id="login-box-field" style="margin-top:20px;">
+                <input name="txt_user" type="text" class="form-login" runat="server" title="Username" value="" size="30" maxlength="2048" />
+            </div>
+            <div id="login-box-name">Password:</div><div id="login-box-field"><input name="txt_pwd" type="password" class="form-login" title="Password" runat="server" value="" size="30" maxlength="2048" /></div>
+            <br />
+            <span class="login-box-options"><input type="checkbox" name="1" value="1"> Remember Me <a href="#" style="margin-left:30px;">Forgot password?</a></span>
+            <br />
+            <br />
+            <asp:ImageButton ID="ImageButton1" runat="server"
+                             ImageUrl="~/images/login-btn.png" style="margin-left:100px;"
+                             onclick="ImageButton1_Click" />
+            &nbsp;
+</form>
 
 
