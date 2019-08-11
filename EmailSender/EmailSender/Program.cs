@@ -10,7 +10,7 @@ namespace EmailSender
 
             EnviarCorreo env = new EnviarCorreo();
 
-            env.Enviar("rsft6000@gmail.com", "Correo de Prueba", "Hola");
+            env.Enviar("rsft6000@gmail.com", "Hola Robert!", "Hola");
             
         }
     }

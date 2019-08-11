@@ -65,27 +65,30 @@
 
 
     <!--Div del formulario-->
+    
     <div>
         <form>
             <!--Campo del nombre-->
-            <div class="form-group">
-                <label for="usr">Nombre:</label>
-                <input type="text" class="form-control" id="usr">
-            </div>
-            <!--Campo del correo-->
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@gmail.com">
-            </div>
-            <!--Campo del mensaje-->
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Mensaje</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <!--Botón de enviar-->
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+    <div class="form-group">
+        <label for="usr">Nombre:</label>
+        <input type="text" class="form-control" id="usr">
     </div>
+    <!--Campo del correo-->
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Correo:</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@gmail.com">
+    </div>
+    <!--Campo del mensaje-->
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Mensaje</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <!--Botón de enviar-->
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+</div>
+    
 
 
     <!--Div del mapa-->
@@ -93,7 +96,48 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62877.85089665521!2d-84.141843!3d9.945132!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5a68d3f183c42ff2!2sFundaci%C3%B3n+Un+Nuevo+Comienzo!5e0!3m2!1sen!2scr!4v1564108109498!5m2!1sen!2scr" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
 
-   
+
+    @model NuevoComienzo.Models.MVCEmail.Models.EmailFormModel
+    @{
+        ViewBag.Title = "Contact";
+    }
+    <h2>@ViewBag.Title.</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h4>Send your comments.</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromEmail)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Message)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Send" />
+            </div>
+        </div>
+    }
+
+
+
 
 
 </div>
