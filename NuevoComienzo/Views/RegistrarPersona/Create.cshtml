@@ -1,0 +1,109 @@
+﻿@model NuevoComienzo.Models.RegistrarPersonaVM
+
+@{
+    ViewData["Title"] = "Registrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container" style="padding-top:10%;">
+
+        <h1>Registrar</h1>
+
+        <h4>Persona</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="PrimerNombre" class="control-label">Primer Nombre</label>
+                        <input asp-for="PrimerNombre" class="form-control" />
+                        <span asp-validation-for="PrimerNombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SegundoNombre" class="control-label">Segundo Nombre</label>
+                        <input asp-for="SegundoNombre" class="form-control" />
+                        <span asp-validation-for="SegundoNombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PrimerApellido" class="control-label">Primer Apellido</label>
+                        <input asp-for="PrimerApellido" class="form-control" />
+                        <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SegundoApellido" class="control-label">Segundo Apellido</label>
+                        <input asp-for="SegundoApellido" class="form-control" />
+                        <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DescIdentificador" class="control-label">Identificaci&oacute;n</label>
+                        <input asp-for="DescIdentificador" class="form-control" />
+                        <span asp-validation-for="DescIdentificador" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TipoIdentificadorID" class="control-label">Tipo de Identificacion</label>
+                        <select asp-for="TipoIdentificadorID" class="form-control" asp-items="ViewBag.TipoIdentificadorID"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sexo" class="form-check-label"></label>
+                        <select asp-for="Sexo" class="form-control" asp-items="ViewBag.Sexo"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                        <input asp-for="FechaNacimiento" class="form-control" />
+                        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DescDireccion" class="control-label">Direcci&oacute;n</label>
+                        <textarea asp-for="DescDireccion" class="form-control"></textarea>
+                        <span asp-validation-for="DescDireccion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DistritoId" class="control-label">Distrito</label>
+                        <select asp-for="DistritoId" class="form-control" asp-items="ViewBag.DistritoId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Correo" class="control-label"></label>
+                        <input asp-for="Correo" class="form-control" />
+                        <span asp-validation-for="Correo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="control-label">Tel&eacute;fono</label>
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TipoPersonaId" class="control-label">Rol</label>
+                        <select asp-for="TipoPersonaId" class="form-control" asp-items="ViewBag.TipoPersonaId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiagnosticoAprendizaje" class="control-label">Diagn&oacute;stico de Aprendizaje</label>
+                        <textarea asp-for="DiagnosticoAprendizaje" class="form-control"></textarea>
+                        <span asp-validation-for="DiagnosticoAprendizaje" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiagnosticoPsicologico" class="control-label">Diagn&oacute;stico Psicol&oacute;gico</label>
+                        <textarea asp-for="DiagnosticoPsicologico" class="form-control"></textarea>
+                        <span asp-validation-for="DiagnosticoPsicologico" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ObservacionesSupervisor" class="control-label">Observaciones del Supervisor</label>
+                        <textarea asp-for="ObservacionesSupervisor" class="form-control"></textarea>
+                        <span asp-validation-for="ObservacionesSupervisor" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Registrar" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Volver</a>
+        </div>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
