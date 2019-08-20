@@ -23,6 +23,8 @@ namespace NuevoComienzo.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Persona.Include(p => p.Anotacion).Include(p => p.Direccion).Include(p => p.Identificador).Include(p => p.TipoPersona);
+
+
             return View(await applicationDbContext.ToListAsync());
         }
 

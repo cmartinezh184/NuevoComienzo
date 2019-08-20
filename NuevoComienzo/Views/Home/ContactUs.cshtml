@@ -1,15 +1,102 @@
-﻿<!--Codigo para Form de Contáctenos-->
-    <div class="block-31" style="position: relative;">
-        <div class="owl-carousel loop-block-31 ">
-            <div class="block-30 block-30-sm item" style="background-color:#F4F3F2;" data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <!--Contenedor de titulo-->
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-7 text-center">
-                            <h2 class="heading2" style="color:#B66CF7">Contactenos</h2>
-                        </div>
+﻿
+<style>
+
+    .titulo h1 {
+        margin-top: 5%;
+        padding: 5px;
+        text-align: center;
+    }
+
+    form {
+        padding: 10px;
+        margin: 20px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .mapWrapper {
+        position: relative;
+        /*
+    Do math with the height of your iframe divided by the width, then converted to percent
+    In this example the height is 400 and the width is 600
+    400 / 600 = .66666667
+    which is 66.6666667% */
+        padding-bottom: 66.6666667%;
+        height: 0;
+    }
+
+        .mapWrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+        }
+</style>
+
+<!--Codigo para Form de Contáctenos-->
+<div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 ">
+        <div class="block-30 block-30-sm item" style="background-color:#F4F3F2; background-image:url('../../wwwroot/images/contactenos.jpg');" data-stellar-background-ratio="0.5">
+            <div class="container">
+                <!--Contenedor de titulo-->
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7 text-center">
+                        <h2 class="heading2" style="color:#B66CF7">Contactenos</h2>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!--Div de titulo-->
+<div class="titulo">
+    <h1>Contáctenos</h1>
+</div>
+
+<!--Flexbox Container-->
+<div class="grid-container">
+
+
+    <!--Div del formulario-->
+    <div>
+        <form>
+            <!--Campo del nombre-->
+            <div class="form-group">
+                <label for="usr">Nombre:</label>
+                <input type="text" class="form-control" id="usr">
+            </div>
+            <!--Campo del correo-->
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Correo:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@gmail.com">
+            </div>
+            <!--Campo del mensaje-->
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Mensaje</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <!--Botón de enviar-->
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+
+    <!--Div del mapa-->
+    <div class="mapWrapper">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62877.85089665521!2d-84.141843!3d9.945132!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5a68d3f183c42ff2!2sFundaci%C3%B3n+Un+Nuevo+Comienzo!5e0!3m2!1sen!2scr!4v1564108109498!5m2!1sen!2scr" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+
+   
+
+
+</div>
+
+
+
