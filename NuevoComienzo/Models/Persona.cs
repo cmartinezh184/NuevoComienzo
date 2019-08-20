@@ -5,7 +5,7 @@ namespace NuevoComienzo.Models
 {
     public partial class Persona
     {
-        public Guid PersonaId { get; set; }
+        public int PersonaId { get; set; }
         public byte TipoPersonaId { get; set; }
         public int IdentificadorId { get; set; }
         public int DireccionId { get; set; }

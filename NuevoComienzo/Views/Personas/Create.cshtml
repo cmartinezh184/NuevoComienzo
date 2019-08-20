@@ -1,11 +1,11 @@
 ﻿@model NuevoComienzo.Models.Persona
 
 @{
-    ViewData["Title"] = "Registrar";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Registrar</h1>
+<h1>Create</h1>
 
 <h4>Persona</h4>
 <hr />
@@ -14,34 +14,34 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TipoPersonaId" class="control-label">Rol</label>
+                <label asp-for="TipoPersonaId" class="control-label"></label>
                 <select asp-for="TipoPersonaId" class ="form-control" asp-items="ViewBag.TipoPersonaId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdentificadorId" class="control-label">Identificaci&oacute;n</label>
+                <label asp-for="IdentificadorId" class="control-label"></label>
                 <select asp-for="IdentificadorId" class ="form-control" asp-items="ViewBag.IdentificadorId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DireccionId" class="control-label">Direccion</label>
+                <label asp-for="DireccionId" class="control-label"></label>
                 <select asp-for="DireccionId" class ="form-control" asp-items="ViewBag.DireccionId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PrimerNombre" class="control-label">Primer Nombre</label>
+                <label asp-for="PrimerNombre" class="control-label"></label>
                 <input asp-for="PrimerNombre" class="form-control" />
                 <span asp-validation-for="PrimerNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SegundoNombre" class="control-label">Segundo Nombre</label>
+                <label asp-for="SegundoNombre" class="control-label"></label>
                 <input asp-for="SegundoNombre" class="form-control" />
                 <span asp-validation-for="SegundoNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrimerApellido" class="control-label">Primer Apellido</label>
+                <label asp-for="PrimerApellido" class="control-label"></label>
                 <input asp-for="PrimerApellido" class="form-control" />
                 <span asp-validation-for="PrimerApellido" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SegundoApellido" class="control-label">Segundo Apellido</label>
+                <label asp-for="SegundoApellido" class="control-label"></label>
                 <input asp-for="SegundoApellido" class="form-control" />
                 <span asp-validation-for="SegundoApellido" class="text-danger"></span>
             </div>
@@ -51,12 +51,12 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="FechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                <label asp-for="FechaNacimiento" class="control-label"></label>
                 <input asp-for="FechaNacimiento" class="form-control" />
                 <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnotacionId" class="control-label">Notas</label>
+                <label asp-for="AnotacionId" class="control-label"></label>
                 <select asp-for="AnotacionId" class ="form-control" asp-items="ViewBag.AnotacionId"></select>
             </div>
             <div class="form-group">
@@ -65,21 +65,18 @@
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Telefono" class="control-label">Tel&eacute;fono</label>
+                <label asp-for="Telefono" class="control-label"></label>
                 <input asp-for="Telefono" class="form-control" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Registrar" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

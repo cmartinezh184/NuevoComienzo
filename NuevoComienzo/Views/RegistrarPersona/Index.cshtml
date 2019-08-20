@@ -1,0 +1,58 @@
+﻿@model IEnumerable<NuevoComienzo.Models.Persona>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container">
+        <h1>Personas</h1>
+
+        <p>
+            <a asp-controller="RegistrarPersona" asp-action="Create">Registrar Nuevo</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Primer Nombre
+                    </th>
+                    <th>
+                        Primer Apellido
+                    </th>
+                    <th>
+                        Direccion
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrimerNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrimerApellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion.DescDireccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sexo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.PersonaId">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.PersonaId">M&aacute;s Informaci&oacute;n</a> |
+                            <a asp-action="Delete" asp-route-id="@item.PersonaId">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+

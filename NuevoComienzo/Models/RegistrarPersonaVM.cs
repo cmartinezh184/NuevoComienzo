@@ -16,8 +16,8 @@ namespace NuevoComienzo.Models
         public byte TipoPersonaId { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
-        public byte? TipoIdentificadorID { get; set; }
-        public string DescIdentificador { get; set; }
+        public byte TipoIdentificadorId { get; set; }
+        public int IdentificadorId { get; set; }
         public string DescDireccion { get; set; }
         public int? DistritoId { get; set; }
         public short? CantonId { get; set; }

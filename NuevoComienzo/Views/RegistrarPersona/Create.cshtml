@@ -7,6 +7,11 @@
 
     <div class="container" style="padding-top:10%;">
 
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert-danger"> <p>Ha ocurrido un error! Intente de nuevo</p> <p>ERROR: @ViewBag.ErrorMessage</p> </div>
+        }
+
         <h1>Registrar</h1>
 
         <h4>Persona</h4>
@@ -36,13 +41,13 @@
                         <span asp-validation-for="SegundoApellido" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="DescIdentificador" class="control-label">Identificaci&oacute;n</label>
-                        <input asp-for="DescIdentificador" class="form-control" />
-                        <span asp-validation-for="DescIdentificador" class="text-danger"></span>
+                        <label asp-for="IdentificadorId" class="control-label">Identificaci&oacute;n</label>
+                        <input asp-for="IdentificadorId" class="form-control" />
+                        <span asp-validation-for="IdentificadorId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="TipoIdentificadorID" class="control-label">Tipo de Identificacion</label>
-                        <select asp-for="TipoIdentificadorID" class="form-control" asp-items="ViewBag.TipoIdentificadorID"></select>
+                        <label asp-for="TipoIdentificadorId" class="control-label">Tipo de Identificacion</label>
+                        <select asp-for="TipoIdentificadorId" class="form-control" asp-items="ViewBag.TipoIdentificadorId"></select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Sexo" class="form-check-label"></label>
@@ -102,6 +107,11 @@
             <a asp-action="Index">Volver</a>
         </div>
     </div>
+
+@if  (ViewBag.ErrorMessage != null)
+{
+    <div class="alert-danger"> <p>Ha ocurrido un error!</p> <p>ERROR: @ViewBag.ErrorMessage</p> </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

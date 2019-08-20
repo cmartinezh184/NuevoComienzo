@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using NuevoComienzo.Data;
 using NuevoComienzo.Models;
 
@@ -19,9 +20,10 @@ namespace NuevoComienzo.Controllers
             _context = context;
         }
         // GET: RegistrarPersona
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("~/Views/Personas/Index.cshtml");
+            var persona = _context.Persona.Include(p => p.Direccion);
+            return View(await persona.ToListAsync());
         }
 
         // GET: RegistrarPersona/Details/5
@@ -34,8 +36,8 @@ namespace NuevoComienzo.Controllers
         public ActionResult Create()
         {
             var sexo = new SelectList(new List<string> { "H", "M"});
-            ViewData["TipoIdentificadorID"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorID", "DescTipoIdentificador");
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "DescTipoPersona");
+            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
             ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
             ViewData["Sexo"] = sexo;
             RegistrarPersonaVM vm = new RegistrarPersonaVM();
@@ -45,7 +47,7 @@ namespace NuevoComienzo.Controllers
         // POST: RegistrarPersona/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,DescIdentificador,TipoIdentificadorId")]RegistrarPersonaVM vm)
+        public async Task<IActionResult> Create([Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
         {
             try
             {
@@ -66,8 +68,8 @@ namespace NuevoComienzo.Controllers
 
                 var identificador = new Identificador
                 {
-                    DescIdentificador = vm.DescIdentificador,
-                    TipoIdentificadorId = vm.TipoIdentificadorID
+                    IdentificadorId = vm.IdentificadorId,
+                    TipoIdentificadorId = vm.TipoIdentificadorId
                 };
 
                 _context.Direccion.Add(direccion);
@@ -93,13 +95,11 @@ namespace NuevoComienzo.Controllers
                 _context.Persona.Add(persona);
                 await _context.SaveChangesAsync();
 
-                ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
-                ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "DescTipoPersona");
-                ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.ErrorMessage = e;
                 return View();
             }
         }

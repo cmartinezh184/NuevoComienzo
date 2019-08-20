@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NuevoComienzo.Data;
 using NuevoComienzo.Models;
 
 namespace NuevoComienzo.Controllers
@@ -23,13 +22,11 @@ namespace NuevoComienzo.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Persona.Include(p => p.Anotacion).Include(p => p.Direccion).Include(p => p.Identificador).Include(p => p.TipoPersona);
-
-
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Personas/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -53,10 +50,10 @@ namespace NuevoComienzo.Controllers
         // GET: Personas/Create
         public IActionResult Create()
         {
-            ViewData["AnotacionId"] = new SelectList(_context.Set<Anotacion>(), "AnotacionId", "AnotacionId");
-            ViewData["DireccionId"] = new SelectList(_context.Set<Direccion>(), "DireccionId", "DireccionId");
-            ViewData["IdentificadorId"] = new SelectList(_context.Set<Identificador>(), "IdentificadorId", "IdentificadorId");
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "DescTipoPersona");
+            ViewData["AnotacionId"] = new SelectList(_context.Anotacion, "AnotacionId", "AnotacionId");
+            ViewData["DireccionId"] = new SelectList(_context.Direccion, "DireccionId", "DireccionId");
+            ViewData["IdentificadorId"] = new SelectList(_context.Identificador, "IdentificadorId", "IdentificadorId");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "TipoPersonaId");
             return View();
         }
 
@@ -69,20 +66,19 @@ namespace NuevoComienzo.Controllers
         {
             if (ModelState.IsValid)
             {
-                persona.PersonaId = Guid.NewGuid();
                 _context.Add(persona);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AnotacionId"] = new SelectList(_context.Set<Anotacion>(), "AnotacionId", "AnotacionId", persona.AnotacionId);
-            ViewData["DireccionId"] = new SelectList(_context.Set<Direccion>(), "DireccionId", "DireccionId", persona.DireccionId);
-            ViewData["IdentificadorId"] = new SelectList(_context.Set<Identificador>(), "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
+            ViewData["AnotacionId"] = new SelectList(_context.Anotacion, "AnotacionId", "AnotacionId", persona.AnotacionId);
+            ViewData["DireccionId"] = new SelectList(_context.Direccion, "DireccionId", "DireccionId", persona.DireccionId);
+            ViewData["IdentificadorId"] = new SelectList(_context.Identificador, "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
             return View(persona);
         }
 
         // GET: Personas/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -94,10 +90,10 @@ namespace NuevoComienzo.Controllers
             {
                 return NotFound();
             }
-            ViewData["AnotacionId"] = new SelectList(_context.Set<Anotacion>(), "AnotacionId", "AnotacionId", persona.AnotacionId);
-            ViewData["DireccionId"] = new SelectList(_context.Set<Direccion>(), "DireccionId", "DireccionId", persona.DireccionId);
-            ViewData["IdentificadorId"] = new SelectList(_context.Set<Identificador>(), "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
+            ViewData["AnotacionId"] = new SelectList(_context.Anotacion, "AnotacionId", "AnotacionId", persona.AnotacionId);
+            ViewData["DireccionId"] = new SelectList(_context.Direccion, "DireccionId", "DireccionId", persona.DireccionId);
+            ViewData["IdentificadorId"] = new SelectList(_context.Identificador, "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
             return View(persona);
         }
 
@@ -106,7 +102,7 @@ namespace NuevoComienzo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PersonaId,TipoPersonaId,IdentificadorId,DireccionId,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,FechaNacimiento,AnotacionId,Correo,Telefono")] Persona persona)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonaId,TipoPersonaId,IdentificadorId,DireccionId,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,FechaNacimiento,AnotacionId,Correo,Telefono")] Persona persona)
         {
             if (id != persona.PersonaId)
             {
@@ -133,15 +129,15 @@ namespace NuevoComienzo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AnotacionId"] = new SelectList(_context.Set<Anotacion>(), "AnotacionId", "AnotacionId", persona.AnotacionId);
-            ViewData["DireccionId"] = new SelectList(_context.Set<Direccion>(), "DireccionId", "DireccionId", persona.DireccionId);
-            ViewData["IdentificadorId"] = new SelectList(_context.Set<Identificador>(), "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
-            ViewData["TipoPersonaId"] = new SelectList(_context.Set<TipoPersona>(), "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
+            ViewData["AnotacionId"] = new SelectList(_context.Anotacion, "AnotacionId", "AnotacionId", persona.AnotacionId);
+            ViewData["DireccionId"] = new SelectList(_context.Direccion, "DireccionId", "DireccionId", persona.DireccionId);
+            ViewData["IdentificadorId"] = new SelectList(_context.Identificador, "IdentificadorId", "IdentificadorId", persona.IdentificadorId);
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "TipoPersonaId", persona.TipoPersonaId);
             return View(persona);
         }
 
         // GET: Personas/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -165,7 +161,7 @@ namespace NuevoComienzo.Controllers
         // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var persona = await _context.Persona.FindAsync(id);
             _context.Persona.Remove(persona);
@@ -173,7 +169,7 @@ namespace NuevoComienzo.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonaExists(Guid id)
+        private bool PersonaExists(int id)
         {
             return _context.Persona.Any(e => e.PersonaId == id);
         }

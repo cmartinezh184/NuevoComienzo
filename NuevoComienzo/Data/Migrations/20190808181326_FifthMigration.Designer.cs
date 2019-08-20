@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NuevoComienzo.Data;
+using NuevoComienzo.Models;
 
 namespace NuevoComienzo.Data.Migrations
 {

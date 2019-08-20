@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using NuevoComienzo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NuevoComienzo.Models;
 
 namespace NuevoComienzo
 {

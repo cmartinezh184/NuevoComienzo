@@ -210,8 +210,6 @@ namespace NuevoComienzo.Models
                     .HasColumnName("IdentificadorID")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.DescIdentificador).HasMaxLength(50);
-
                 entity.Property(e => e.TipoIdentificadorId).HasColumnName("TipoIdentificadorID");
 
                 entity.HasOne(d => d.TipoIdentificador)
@@ -300,11 +298,11 @@ namespace NuevoComienzo.Models
 
             modelBuilder.Entity<TipoIdentificador>(entity =>
             {
-                entity.HasKey(e => e.TipoIdentificadorID);
+                entity.HasKey(e => e.TipoIdentificadorId);
 
                 entity.ToTable("Tipo_Identificador");
 
-                entity.Property(e => e.TipoIdentificadorID).HasColumnName("Tipo_Identificador");
+                entity.Property(e => e.TipoIdentificadorId).HasColumnName("Tipo_Identificador");
 
                 entity.Property(e => e.DescTipoIdentificador)
                     .HasColumnName("DescTipo_Identificador")
