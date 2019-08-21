@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container" style="padding-top:10%;">
+    <div class="container" style="padding-top:7%;">
 
         @if (ViewBag.ErrorMessage != null)
         {
@@ -49,9 +49,16 @@
                         <label asp-for="TipoIdentificadorId" class="control-label">Tipo de Identificacion</label>
                         <select asp-for="TipoIdentificadorId" class="form-control" asp-items="ViewBag.TipoIdentificadorId"></select>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Sexo" class="form-check-label"></label>
-                        <select asp-for="Sexo" class="form-control" asp-items="ViewBag.Sexo"></select>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            Sexo
+                            <div class="form-check-inline">
+                                <input type="radio" class="form-check-input" asp-for="Sexo" value="false" /> M
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" class="form-check-input" asp-for="Sexo" value="true" /> F
+                            </div>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label asp-for="FechaNacimiento" class="control-label">Fecha de Nacimiento</label>
@@ -80,6 +87,16 @@
                     <div class="form-group">
                         <label asp-for="TipoPersonaId" class="control-label">Rol</label>
                         <select asp-for="TipoPersonaId" class="form-control" asp-items="ViewBag.TipoPersonaId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Medicamentos" class="control-label">Medicamentos</label>
+                        <textarea asp-for="Medicamentos" class="form-control"></textarea>
+                        <span asp-validation-for="Medicamentos" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Alergias" class="control-label">Alergias</label>
+                        <textarea asp-for="Alergias" class="form-control"></textarea>
+                        <span asp-validation-for="Alergias" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="DiagnosticoAprendizaje" class="control-label">Diagn&oacute;stico de Aprendizaje</label>

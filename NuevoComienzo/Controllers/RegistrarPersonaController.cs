@@ -22,32 +22,60 @@ namespace NuevoComienzo.Controllers
         // GET: RegistrarPersona
         public async Task<IActionResult> Index()
         {
-            var persona = _context.Persona.Include(p => p.Direccion);
+            var persona = _context.Persona.Include(p => p.TipoPersona);
             return View(await persona.ToListAsync());
         }
 
         // GET: RegistrarPersona/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var persona = await _context.Persona
+                .Include(p => p.Anotacion)
+                .Include(p => p.Direccion)
+                .Include(p => p.Identificador)
+                .Include(p => p.TipoPersona)
+                .Include(p => p.Identificador.TipoIdentificador)
+                .Include(p => p.Direccion.Distrito)
+                .Include(p => p.Direccion.Distrito.Canton)
+                .Include(p => p.Direccion.Distrito.Canton.Provincia)
+
+
+                .FirstOrDefaultAsync(m => m.PersonaId == id);
+            if (persona == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+            ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
+            ViewData["CantonId"] = new SelectList(_context.Set<Distrito>(), "CantonId", "Nombre");
+            ViewData["ProvinciaId"] = new SelectList(_context.Set<Distrito>(), "ProvinciaId", "Nombre");
+            ViewData["DireccionId"] = new SelectList(_context.Set<Distrito>(), "DireccionId", "DescDireccion");
+
+
+            return View(persona);
         }
 
         // GET: RegistrarPersona/Create
         public ActionResult Create()
         {
-            var sexo = new SelectList(new List<string> { "H", "M"});
             ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
             ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
             ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
-            ViewData["Sexo"] = sexo;
-            RegistrarPersonaVM vm = new RegistrarPersonaVM();
+            var vm = new RegistrarPersonaVM();
             return View();
         }
 
         // POST: RegistrarPersona/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
+        public async Task<IActionResult> Create([Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
         {
             try
             {
@@ -105,26 +133,119 @@ namespace NuevoComienzo.Controllers
         }
 
         // GET: RegistrarPersona/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var persona = await _context.Persona.FindAsync(id);
+            var identificador = await _context.Identificador.FindAsync(persona.IdentificadorId);
+            var anotacion = await _context.Anotacion.FindAsync(persona.AnotacionId);
+            var direccion = await _context.Direccion.FindAsync(persona.DireccionId);
+
+            var vm = new RegistrarPersonaVM
+            {
+                IdentificadorId = persona.IdentificadorId,
+                TipoIdentificadorId = identificador.TipoIdentificadorId,
+                PrimerNombre = persona.PrimerNombre,
+                SegundoNombre = persona.SegundoNombre,
+                PrimerApellido = persona.PrimerApellido,
+                SegundoApellido = persona.SegundoApellido,
+                Sexo = persona.Sexo,
+                TipoPersonaId = persona.TipoPersonaId,
+                Correo = persona.Correo,
+                Telefono = persona.Telefono,
+                FechaNacimiento = persona.FechaNacimiento,
+                Medicamentos = anotacion.Medicamentos,
+                Alergias = anotacion.Alergias,
+                DiagnosticoAprendizaje = anotacion.DiagnosticoAprendizaje,
+                DiagnosticoPsicologico = anotacion.DiagnosticoPsicologico,
+                DescDireccion = direccion.DescDireccion,
+                DistritoId = direccion.DistritoId,
+                ObservacionesSupervisor = anotacion.ObservacionesSupervisor
+            };
+
+            if (persona == null)
+            {
+                return NotFound();
+            }
+            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+            ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
+            return View(vm);
         }
 
         // POST: RegistrarPersona/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var persona = await _context.Persona.FindAsync(id);
+            var identificador = await _context.Identificador.FindAsync(vm.IdentificadorId);
+            var anotacion = await _context.Anotacion.FindAsync(persona.AnotacionId);
+            var direccion = await _context.Direccion.FindAsync(persona.DireccionId);
 
+            if (id != persona.PersonaId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    direccion.DescDireccion = vm.DescDireccion;
+                    direccion.DistritoId = vm.DistritoId;
+
+                    _context.Update(direccion);
+
+                    anotacion.Medicamentos = vm.Medicamentos;
+                    anotacion.Alergias = vm.Alergias;
+                    anotacion.DiagnosticoAprendizaje = vm.DiagnosticoAprendizaje;
+                    anotacion.DiagnosticoPsicologico = vm.DiagnosticoPsicologico;
+                    anotacion.ObservacionesSupervisor = vm.ObservacionesSupervisor;
+
+                    _context.Update(anotacion);
+
+                    identificador.IdentificadorId = vm.IdentificadorId;
+                    identificador.TipoIdentificadorId = vm.TipoIdentificadorId;
+
+                    persona.PrimerNombre = vm.PrimerNombre;
+                    persona.SegundoNombre = vm.SegundoNombre;
+                    persona.PrimerApellido = vm.PrimerApellido;
+                    persona.SegundoApellido = vm.SegundoApellido;
+                    persona.Sexo = vm.Sexo;
+                    persona.TipoPersonaId = vm.TipoPersonaId;
+                    persona.IdentificadorId = identificador.IdentificadorId;
+                    persona.AnotacionId = anotacion.AnotacionId;
+                    persona.Correo = vm.Correo;
+                    persona.Telefono = vm.Telefono;
+                    persona.FechaNacimiento = vm.FechaNacimiento;
+                    persona.DireccionId = direccion.DireccionId;
+
+                    _context.Update(persona);
+
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonaExists(persona.PersonaId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+            ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
+            return View(persona);
         }
 
         // GET: RegistrarPersona/Delete/5
@@ -148,6 +269,11 @@ namespace NuevoComienzo.Controllers
             {
                 return View();
             }
+        }
+
+        private bool PersonaExists(int id)
+        {
+            return _context.Persona.Any(e => e.PersonaId == id);
         }
     }
 }
