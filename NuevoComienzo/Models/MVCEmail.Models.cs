@@ -11,12 +11,15 @@ namespace NuevoComienzo.Models
     {
         public class EmailFormModel
         {
-            [Required, Display(Name = "Escribe tu Nombre")]
+            [Required, Display(Name = "name")]
             public string FromName { get; set; }
             [Required, Display(Name = "Escribe tu Correo"), EmailAddress]
             public string FromEmail { get; set; }
             [Required]
             public string Message { get; set; }
         }
+
+       
     }
 }
+
