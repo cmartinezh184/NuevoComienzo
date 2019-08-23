@@ -2,17 +2,28 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 using NuevoComienzo.Models;
 
 namespace NuevoComienzo.Controllers
 {
     public class HomeController : Controller
     {
+
+        public string PostedMessage { get; set; } = "";
+
+        [BindProperty]
+        public string name { get; set; }
+        [BindProperty]
+        public string email { get; set; }
+        [BindProperty]
+        public string message { get; set; }
         public IActionResult Index()
         {
-            return View();
+            return View(email);
         }
 
         public IActionResult AboutUs()
