@@ -16,50 +16,50 @@ namespace NuevoComienzo.Controllers
         private readonly ApplicationDbContext _context;
 
         public RegistrarPersonaController(ApplicationDbContext context)
-        {
+        { 
             _context = context;
         }
         // GET: RegistrarPersona
         public async Task<IActionResult> Index()
         {
-            var persona = _context.Persona.Include(p => p.TipoPersona);
-            return View(await persona.ToListAsync());
+                var persona = _context.Persona.Include(p => p.TipoPersona);
+                return View(await persona.ToListAsync());
         }
 
         // GET: RegistrarPersona/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var persona = await _context.Persona
-                .Include(p => p.Anotacion)
-                .Include(p => p.Direccion)
-                .Include(p => p.Identificador)
-                .Include(p => p.TipoPersona)
-                .Include(p => p.Identificador.TipoIdentificador)
-                .Include(p => p.Direccion.Distrito)
-                .Include(p => p.Direccion.Distrito.Canton)
-                .Include(p => p.Direccion.Distrito.Canton.Provincia)
-
-
-                .FirstOrDefaultAsync(m => m.PersonaId == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
-
-            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
-            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
-            ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
-            ViewData["CantonId"] = new SelectList(_context.Set<Distrito>(), "CantonId", "Nombre");
-            ViewData["ProvinciaId"] = new SelectList(_context.Set<Distrito>(), "ProvinciaId", "Nombre");
-            ViewData["DireccionId"] = new SelectList(_context.Set<Distrito>(), "DireccionId", "DescDireccion");
+                var persona = await _context.Persona
+                    .Include(p => p.Anotacion)
+                    .Include(p => p.Direccion)
+                    .Include(p => p.Identificador)
+                    .Include(p => p.TipoPersona)
+                    .Include(p => p.Identificador.TipoIdentificador)
+                    .Include(p => p.Direccion.Distrito)
+                    .Include(p => p.Direccion.Distrito.Canton)
+                    .Include(p => p.Direccion.Distrito.Canton.Provincia)
 
 
-            return View(persona);
+                    .FirstOrDefaultAsync(m => m.PersonaId == id);
+                if (persona == null)
+                {
+                    return NotFound();
+                }
+
+                ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+                ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+                ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
+                ViewData["CantonId"] = new SelectList(_context.Set<Distrito>(), "CantonId", "Nombre");
+                ViewData["ProvinciaId"] = new SelectList(_context.Set<Distrito>(), "ProvinciaId", "Nombre");
+                ViewData["DireccionId"] = new SelectList(_context.Set<Distrito>(), "DireccionId", "DescDireccion");
+
+
+                return View(persona);
         }
 
         // GET: RegistrarPersona/Create
@@ -249,24 +249,88 @@ namespace NuevoComienzo.Controllers
         }
 
         // GET: RegistrarPersona/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var persona = await _context.Persona
+                .Include(p => p.Anotacion)
+                .Include(p => p.Direccion)
+                .Include(p => p.Identificador)
+                .Include(p => p.TipoPersona)
+                .Include(p => p.Identificador.TipoIdentificador)
+                .Include(p => p.Direccion.Distrito)
+                .Include(p => p.Direccion.Distrito.Canton)
+                .Include(p => p.Direccion.Distrito.Canton.Provincia)
+
+
+                .FirstOrDefaultAsync(m => m.PersonaId == id);
+            if (persona == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+            ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+            ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
+            ViewData["CantonId"] = new SelectList(_context.Set<Distrito>(), "CantonId", "Nombre");
+            ViewData["ProvinciaId"] = new SelectList(_context.Set<Distrito>(), "ProvinciaId", "Nombre");
+            ViewData["DireccionId"] = new SelectList(_context.Set<Distrito>(), "DireccionId", "DescDireccion");
+
+
+            return View(persona);
         }
 
         // POST: RegistrarPersona/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
+            var persona = await _context.Persona.FindAsync(id);
+            var identificador = await _context.Identificador.FindAsync(persona.IdentificadorId);
+            var anotacion = await _context.Anotacion.FindAsync(persona.AnotacionId);
+            var direccion = await _context.Direccion.FindAsync(persona.DireccionId);
             try
             {
-                // TODO: Add delete logic here
+                if (id != persona.PersonaId)
+                {
+                    return NotFound();
+                }
 
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Remove(direccion);
+                        _context.Remove(anotacion);
+                        _context.Remove(identificador);
+                        _context.Remove(persona);
+
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!PersonaExists(persona.PersonaId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
+                ViewData["TipoPersonaId"] = new SelectList(_context.TipoPersona, "TipoPersonaId", "DescTipoPersona");
+                ViewData["DistritoId"] = new SelectList(_context.Set<Distrito>(), "DistritoId", "Nombre");
                 return RedirectToAction(nameof(Index));
-            }
-            catch
+            }catch (Exception e)
             {
+                ViewBag.ErrorMessage = e;
                 return View();
             }
         }
