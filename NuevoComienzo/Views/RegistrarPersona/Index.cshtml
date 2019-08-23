@@ -1,0 +1,256 @@
+﻿@model IEnumerable<NuevoComienzo.Models.Persona>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container" style="padding-top:7%;">
+        <h1>Ni&ntilde;os</h1>
+
+        <p>
+            <a asp-controller="RegistrarPersona" asp-action="Create">Registrar Nuevo</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        1<sup>er</sup> Nombre
+                    </th>
+                    <th>
+                        2<sup>do</sup> Nombre
+                    </th>
+                    <th>
+                        1<sup>er</sup> Apellido
+                    </th>
+                    <th>
+                        2<sup>do</sup> Apellido
+                    </th>
+                    <th>
+                        Identificaci&oacute;n
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th>
+                        Tel&eacute;fono
+                    </th>
+                    <th>
+                        Correo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.TipoPersonaId == 1)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdentificadorId)
+                            </td>
+                            <td>
+                                @if (item.Sexo == null)
+                                {
+                                    <p>M</p>
+                                }
+                                else
+                                {
+                                    <p>F</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Correo)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.PersonaId">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.PersonaId">+Informaci&oacute;n</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PersonaId" style="color:red;">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <h1>Padres</h1>
+
+        <p>
+            <a asp-controller="RegistrarPersona" asp-action="Create">Registrar Nuevo</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        1<sup>er</sup> Nombre
+                    </th>
+                    <th>
+                        2<sup>do</sup> Nombre
+                    </th>
+                    <th>
+                        1<sup>er</sup> Apellido
+                    </th>
+                    <th>
+                        2<sup>do</sup> Apellido
+                    </th>
+                    <th>
+                        Identificaci&oacute;n
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th>
+                        Tel&eacute;fono
+                    </th>
+                    <th>
+                        Correo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.TipoPersonaId == 3)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdentificadorId)
+                            </td>
+                            <td>
+                                @if (item.Sexo == null)
+                                {
+                                    <p>M</p>
+                                }
+                                else
+                                {
+                                    <p>F</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Correo)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.PersonaId">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.PersonaId">+Informaci&oacute;n</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PersonaId" style="color:red;">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <h1>Voluntarios</h1>
+
+        <p>
+            <a asp-controller="RegistrarPersona" asp-action="Create">Registrar Nuevo</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        1<sup>er</sup> Nombre
+                    </th>
+                    <th>
+                        2<sup>do</sup> Nombre
+                    </th>
+                    <th>
+                        1<sup>er</sup> Apellido
+                    </th>
+                    <th>
+                        2<sup>do</sup> Apellido
+                    </th>
+                    <th>
+                        Identificaci&oacute;n
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th>
+                        Tel&eacute;fono
+                    </th>
+                    <th>
+                        Correo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.TipoPersonaId == 2)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrimerApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SegundoApellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdentificadorId)
+                            </td>
+                            <td>
+                                @if (item.Sexo == null)
+                                {
+                                    <p>M</p>
+                                }
+                                else
+                                {
+                                    <p>F</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Correo)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.PersonaId">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.PersonaId">+Informaci&oacute;n</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PersonaId" style="color:red;">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+

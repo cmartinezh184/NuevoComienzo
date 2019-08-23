@@ -12,7 +12,7 @@ namespace NuevoComienzo.Models
 
         public short CantonId { get; set; }
         public string Nombre { get; set; }
-        public byte? ProvinciaId { get; set; }
+        public sbyte? ProvinciaId { get; set; }
 
         public virtual Provincia Provincia { get; set; }
         public virtual ICollection<Distrito> Distrito { get; set; }

@@ -10,7 +10,7 @@ namespace NuevoComienzo.Models
             Persona = new HashSet<Persona>();
         }
 
-        public byte TipoPersonaId { get; set; }
+        public sbyte TipoPersonaId { get; set; }
         public string DescTipoPersona { get; set; }
 
         public virtual ICollection<Persona> Persona { get; set; }

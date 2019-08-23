@@ -2,34 +2,32 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NuevoComienzo.Data;
+using NuevoComienzo.Models;
 
-namespace NuevoComienzo.Data.Migrations
+namespace NuevoComienzo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190713130716_ThirdMigration")]
-    partial class ThirdMigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
+                        .HasColumnName("name")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
@@ -39,17 +37,15 @@ namespace NuevoComienzo.Data.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("aspnet_role");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClaimType");
 
@@ -68,19 +64,24 @@ namespace NuevoComienzo.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnName("access_failed_count");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
+                        .HasColumnName("email")
                         .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnName("email_confirmed");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnName("lockout_enabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
@@ -90,17 +91,23 @@ namespace NuevoComienzo.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnName("password_hash");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnName("phone_number");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnName("phone_number_confirmed");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnName("security_stamp");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnName("two_factor_enabled");
 
                     b.Property<string>("UserName")
+                        .HasColumnName("user_name")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -110,35 +117,38 @@ namespace NuevoComienzo.Data.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("aspnet_user");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnName("claim_type");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnName("claim_value");
 
                     b.Property<string>("UserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("aspnet_user_claim");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasColumnName("user_id")
                         .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
@@ -153,20 +163,22 @@ namespace NuevoComienzo.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("aspnet_user_login");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnName("user_id");
 
-                    b.Property<string>("RoleId");
+                    b.Property<string>("RoleId")
+                        .HasColumnName("role_id");
 
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("aspnet_user_role");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -190,7 +202,7 @@ namespace NuevoComienzo.Data.Migrations
                 {
                     b.Property<short>("AnotacionId")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("AnotacionID");
 
                     b.Property<string>("Alergias");
 
@@ -211,11 +223,13 @@ namespace NuevoComienzo.Data.Migrations
                 {
                     b.Property<short>("CantonId")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("CantonID");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(50);
 
-                    b.Property<byte?>("ProvinciaId");
+                    b.Property<sbyte?>("ProvinciaId")
+                        .HasColumnName("ProvinciaID");
 
                     b.HasKey("CantonId");
 
@@ -228,11 +242,13 @@ namespace NuevoComienzo.Data.Migrations
                 {
                     b.Property<int>("DireccionId")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("DireccionID");
 
-                    b.Property<string>("DescDireccion");
+                    b.Property<string>("DescDireccion")
+                        .HasMaxLength(50);
 
-                    b.Property<int?>("DistritoId");
+                    b.Property<int?>("DistritoId")
+                        .HasColumnName("DistritoID");
 
                     b.HasKey("DireccionId");
 
@@ -245,11 +261,13 @@ namespace NuevoComienzo.Data.Migrations
                 {
                     b.Property<int>("DistritoId")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("DistritoID");
 
-                    b.Property<short?>("CantonId");
+                    b.Property<short?>("CantonId")
+                        .HasColumnName("CantonID");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(50);
 
                     b.HasKey("DistritoId");
 
@@ -261,12 +279,10 @@ namespace NuevoComienzo.Data.Migrations
             modelBuilder.Entity("NuevoComienzo.Models.Identificador", b =>
                 {
                     b.Property<int>("IdentificadorId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("IdentificadorID");
 
-                    b.Property<string>("DescIdentificador");
-
-                    b.Property<byte?>("TipoIdentificadorId");
+                    b.Property<sbyte>("TipoIdentificadorId")
+                        .HasColumnName("TipoIdentificadorID");
 
                     b.HasKey("IdentificadorId");
 
@@ -277,32 +293,49 @@ namespace NuevoComienzo.Data.Migrations
 
             modelBuilder.Entity("NuevoComienzo.Models.Persona", b =>
                 {
-                    b.Property<Guid>("PersonaId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("PersonaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("PersonaID");
 
-                    b.Property<short?>("AnotacionId");
+                    b.Property<short?>("AnotacionId")
+                        .HasColumnName("AnotacionID");
 
-                    b.Property<string>("Correo");
+                    b.Property<string>("Correo")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<int>("DireccionId");
+                    b.Property<int>("DireccionId")
+                        .HasColumnName("DireccionID");
 
-                    b.Property<DateTime>("FechaNacimiento");
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("date");
 
-                    b.Property<int>("IdentificadorId");
+                    b.Property<int>("IdentificadorId")
+                        .HasColumnName("IdentificadorID");
 
-                    b.Property<string>("PrimerApellido");
+                    b.Property<string>("PrimerApellido")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("PrimerNombre");
+                    b.Property<string>("PrimerNombre")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("SegundoApellido");
+                    b.Property<string>("SegundoApellido")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("SegundoNombre");
+                    b.Property<string>("SegundoNombre")
+                        .HasMaxLength(50);
 
-                    b.Property<bool>("Sexo");
+                    b.Property<string>("Sexo");
 
-                    b.Property<string>("Telefono");
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
-                    b.Property<byte>("TipoPersonaId");
+                    b.Property<sbyte>("TipoPersonaId")
+                        .HasColumnName("TipoPersonaID");
 
                     b.HasKey("PersonaId");
 
@@ -319,9 +352,12 @@ namespace NuevoComienzo.Data.Migrations
 
             modelBuilder.Entity("NuevoComienzo.Models.Provincia", b =>
                 {
-                    b.Property<byte>("ProvinciaId");
+                    b.Property<sbyte>("ProvinciaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ProvinciaID");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(50);
 
                     b.HasKey("ProvinciaId");
 
@@ -330,20 +366,26 @@ namespace NuevoComienzo.Data.Migrations
 
             modelBuilder.Entity("NuevoComienzo.Models.TipoIdentificador", b =>
                 {
-                    b.Property<byte>("TipoIdentificadorID");
+                    b.Property<sbyte>("TipoIdentificadorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("TipoIdentificadorID");
 
-                    b.Property<string>("DescTipoIdentificador");
+                    b.Property<string>("DescTipoIdentificador")
+                        .HasMaxLength(50);
 
-                    b.HasKey("TipoIdentificadorID");
+                    b.HasKey("TipoIdentificadorId");
 
                     b.ToTable("TipoIdentificador");
                 });
 
             modelBuilder.Entity("NuevoComienzo.Models.TipoPersona", b =>
                 {
-                    b.Property<byte>("TipoPersonaId");
+                    b.Property<sbyte>("TipoPersonaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("TipoPersonaID");
 
-                    b.Property<string>("DescTipoPersona");
+                    b.Property<string>("DescTipoPersona")
+                        .HasMaxLength(50);
 
                     b.HasKey("TipoPersonaId");
 
@@ -399,50 +441,55 @@ namespace NuevoComienzo.Data.Migrations
                 {
                     b.HasOne("NuevoComienzo.Models.Provincia", "Provincia")
                         .WithMany("Canton")
-                        .HasForeignKey("ProvinciaId");
+                        .HasForeignKey("ProvinciaId")
+                        .HasConstraintName("FK_Canton_Provincia");
                 });
 
             modelBuilder.Entity("NuevoComienzo.Models.Direccion", b =>
                 {
                     b.HasOne("NuevoComienzo.Models.Distrito", "Distrito")
                         .WithMany("Direccion")
-                        .HasForeignKey("DistritoId");
+                        .HasForeignKey("DistritoId")
+                        .HasConstraintName("FK_Direccion_Distrito");
                 });
 
             modelBuilder.Entity("NuevoComienzo.Models.Distrito", b =>
                 {
                     b.HasOne("NuevoComienzo.Models.Canton", "Canton")
                         .WithMany("Distrito")
-                        .HasForeignKey("CantonId");
+                        .HasForeignKey("CantonId")
+                        .HasConstraintName("FK_Distrito_Canton");
                 });
 
             modelBuilder.Entity("NuevoComienzo.Models.Identificador", b =>
                 {
                     b.HasOne("NuevoComienzo.Models.TipoIdentificador", "TipoIdentificador")
                         .WithMany("Identificador")
-                        .HasForeignKey("TipoIdentificadorId");
+                        .HasForeignKey("TipoIdentificadorId")
+                        .HasConstraintName("FK_Identificador_Tipo_Identificador");
                 });
 
             modelBuilder.Entity("NuevoComienzo.Models.Persona", b =>
                 {
                     b.HasOne("NuevoComienzo.Models.Anotacion", "Anotacion")
                         .WithMany("Persona")
-                        .HasForeignKey("AnotacionId");
+                        .HasForeignKey("AnotacionId")
+                        .HasConstraintName("FK_Persona_Anotacion");
 
                     b.HasOne("NuevoComienzo.Models.Direccion", "Direccion")
                         .WithMany("Persona")
                         .HasForeignKey("DireccionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Persona_Direccion");
 
                     b.HasOne("NuevoComienzo.Models.Identificador", "Identificador")
                         .WithMany("Persona")
                         .HasForeignKey("IdentificadorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Persona_Identificador");
 
                     b.HasOne("NuevoComienzo.Models.TipoPersona", "TipoPersona")
                         .WithMany("Persona")
                         .HasForeignKey("TipoPersonaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Persona_Tipo_Persona");
                 });
 #pragma warning restore 612, 618
         }
