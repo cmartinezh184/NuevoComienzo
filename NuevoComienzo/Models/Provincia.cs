@@ -10,7 +10,7 @@ namespace NuevoComienzo.Models
             Canton = new HashSet<Canton>();
         }
 
-        public byte ProvinciaId { get; set; }
+        public sbyte ProvinciaId { get; set; }
         public string Nombre { get; set; }
 
         public virtual ICollection<Canton> Canton { get; set; }

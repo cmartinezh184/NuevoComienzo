@@ -11,17 +11,17 @@ namespace NuevoComienzo.Models
         public string SegundoNombre { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
-        public bool Sexo { get; set; }
+        public string Sexo { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public byte TipoPersonaId { get; set; }
+        public sbyte TipoPersonaId { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
-        public byte TipoIdentificadorId { get; set; }
+        public sbyte TipoIdentificadorId { get; set; }
         public int IdentificadorId { get; set; }
         public string DescDireccion { get; set; }
         public int? DistritoId { get; set; }
         public short? CantonId { get; set; }
-        public byte ProvinciaId { get; set; }
+        public sbyte ProvinciaId { get; set; }
         public string DiagnosticoAprendizaje { get; set; }
         public string DiagnosticoPsicologico { get; set; }
         public string ObservacionesSupervisor { get; set; }

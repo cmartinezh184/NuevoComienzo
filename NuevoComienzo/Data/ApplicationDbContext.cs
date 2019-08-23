@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NuevoComienzo.Models
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext()
         {
@@ -16,13 +17,13 @@ namespace NuevoComienzo.Models
         }
 
         public virtual DbSet<Anotacion> Anotacion { get; set; }
-        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        /*public virtual DbSet<AspNetroleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }*/
         public virtual DbSet<Canton> Canton { get; set; }
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
@@ -39,12 +40,13 @@ namespace NuevoComienzo.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=FundacionUnNuevoComienzo;Trusted_Connection=True;");
+                optionsBuilder.UseMySql("server=198.71.227.91;port=3306;database=fnuevocomienzodb;uid=fncdbadmin;password=%a723zAu");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity<Anotacion>(entity =>
@@ -52,108 +54,143 @@ namespace NuevoComienzo.Models
                 entity.Property(e => e.AnotacionId).HasColumnName("AnotacionID");
             });
 
-            modelBuilder.Entity<AspNetRoleClaims>(entity =>
-            {
-                entity.HasIndex(e => e.RoleId);
+            // Map Table
+            modelBuilder.Entity<IdentityUser>().ToTable("aspnet_user");
+            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("aspnet_user_login");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("aspnet_user_claim");
+            modelBuilder.Entity<IdentityRole>().ToTable("aspnet_role");
+            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("aspnet_user_role");
 
-                entity.Property(e => e.RoleId).IsRequired();
+            // Map Columns
+            modelBuilder.Entity<IdentityUser>().Property(u => u.Id).HasColumnName("id");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.Email).HasColumnName("email");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.EmailConfirmed).HasColumnName("email_confirmed");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.PasswordHash).HasColumnName("password_hash");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.SecurityStamp).HasColumnName("security_stamp");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.PhoneNumber).HasColumnName("phone_number");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.PhoneNumberConfirmed).HasColumnName("phone_number_confirmed");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.TwoFactorEnabled).HasColumnName("two_factor_enabled");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.LockoutEnabled).HasColumnName("lockout_enabled");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.AccessFailedCount).HasColumnName("access_failed_count");
+            modelBuilder.Entity<IdentityUser>().Property(u => u.UserName).HasColumnName("user_name");
 
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetRoleClaims)
-                    .HasForeignKey(d => d.RoleId);
-            });
+            modelBuilder.Entity<IdentityRole>().Property(u => u.Id).HasColumnName("id");
+            modelBuilder.Entity<IdentityRole>().Property(u => u.Name).HasColumnName("name");
 
-            modelBuilder.Entity<AspNetRoles>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
+            modelBuilder.Entity<IdentityUserRole<string>>().Property(u => u.UserId).HasColumnName("user_id");
+            modelBuilder.Entity<IdentityUserRole<string>>().Property(u => u.RoleId).HasColumnName("role_id");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+            modelBuilder.Entity<IdentityUserClaim<string>>().Property(u => u.Id).HasColumnName("id");
+            modelBuilder.Entity<IdentityUserClaim<string>>().Property(u => u.UserId).HasColumnName("user_id");
+            modelBuilder.Entity<IdentityUserClaim<string>>().Property(u => u.ClaimType).HasColumnName("claim_type");
+            modelBuilder.Entity<IdentityUserClaim<string>>().Property(u => u.ClaimValue).HasColumnName("claim_value");
 
-                entity.Property(e => e.Name).HasMaxLength(256);
+            modelBuilder.Entity<IdentityUserLogin<string>>().Property(u => u.LoginProvider).HasColumnName("login_provider");
+            modelBuilder.Entity<IdentityUserLogin<string>>().Property(u => u.LoginProvider).HasColumnName("provider_key");
+            modelBuilder.Entity<IdentityUserLogin<string>>().Property(u => u.LoginProvider).HasColumnName("user_id");
 
-                entity.Property(e => e.NormalizedName).HasMaxLength(256);
-            });
+            /* modelBuilder.Entity<AspNetroleClaims>(entity =>
+             {
+                 entity.HasIndex(e => e.RoleId);
 
-            modelBuilder.Entity<AspNetUserClaims>(entity =>
-            {
-                entity.HasIndex(e => e.UserId);
+                 entity.Property(e => e.RoleId).IsRequired();
 
-                entity.Property(e => e.UserId).IsRequired();
+                 entity.HasOne(d => d.Role)
+                     .WithMany(p => p.AspNetRoleClaims)
+                     .HasForeignKey(d => d.RoleId);
+             });
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserClaims)
-                    .HasForeignKey(d => d.UserId);
-            });
+             modelBuilder.Entity<AspNetRoles>(entity =>
+             {
+                 entity.HasIndex(e => e.NormalizedName)
+                     .HasName("RoleNameIndex")
+                     .IsUnique()
+                     .HasFilter("([NormalizedName] IS NOT NULL)");
 
-            modelBuilder.Entity<AspNetUserLogins>(entity =>
-            {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.HasIndex(e => e.UserId);
+                 entity.Property(e => e.Name).HasMaxLength(256);
 
-                entity.Property(e => e.LoginProvider).HasMaxLength(128);
+                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
+             });
 
-                entity.Property(e => e.ProviderKey).HasMaxLength(128);
+             modelBuilder.Entity<AspNetUserClaims>(entity =>
+             {
+                 entity.HasIndex(e => e.UserId);
 
-                entity.Property(e => e.UserId).IsRequired();
+                 entity.Property(e => e.UserId).IsRequired();
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserLogins)
-                    .HasForeignKey(d => d.UserId);
-            });
+                 entity.HasOne(d => d.UserId)
+                     .WithMany(p => p.AspNetUserClaims)
+                     .HasForeignKey(d => d.UserId);
+             });
 
-            modelBuilder.Entity<AspNetUserRoles>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
+             modelBuilder.Entity<AspNetUserLogins>(entity =>
+             {
+                 entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 
-                entity.HasIndex(e => e.RoleId);
+                 entity.HasIndex(e => e.UserId);
 
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.RoleId);
+                 entity.Property(e => e.LoginProvider).HasMaxLength(128);
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.UserId);
-            });
+                 entity.Property(e => e.ProviderKey).HasMaxLength(128);
 
-            modelBuilder.Entity<AspNetUserTokens>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+                 entity.Property(e => e.UserId).IsRequired();
 
-                entity.Property(e => e.LoginProvider).HasMaxLength(128);
+                 entity.HasOne(d => d.User)
+                     .WithMany(p => p.AspNetUserLogins)
+                     .HasForeignKey(d => d.UserId);
+             });
 
-                entity.Property(e => e.Name).HasMaxLength(128);
+             modelBuilder.Entity<AspNetUserRoles>(entity =>
+             {
+                 entity.HasKey(e => new { e.UserId, e.RoleId });
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
-                    .HasForeignKey(d => d.UserId);
-            });
+                 entity.HasIndex(e => e.RoleId);
 
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
+                 entity.HasOne(d => d.Role)
+                     .WithMany(p => p.AspNetUserRoles)
+                     .HasForeignKey(d => d.RoleId);
 
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                 entity.HasOne(d => d.User)
+                     .WithMany(p => p.AspNetUserRoles)
+                     .HasForeignKey(d => d.UserId);
+             });
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+             modelBuilder.Entity<AspNetUserTokens>(entity =>
+             {
+                 entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                 entity.Property(e => e.LoginProvider).HasMaxLength(128);
 
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+                 entity.Property(e => e.Name).HasMaxLength(128);
 
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+                 entity.HasOne(d => d.User)
+                     .WithMany(p => p.AspNetUserTokens)
+                     .HasForeignKey(d => d.UserId);
+             });
 
-                entity.Property(e => e.UserName).HasMaxLength(256);
-            });
+             modelBuilder.Entity<AspNetUsers>(entity =>
+             {
+                 entity.HasIndex(e => e.NormalizedEmail)
+                     .HasName("EmailIndex");
 
+                 entity.HasIndex(e => e.NormalizedUserName)
+                     .HasName("UserNameIndex")
+                     .IsUnique()
+                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                 entity.Property(e => e.Id).ValueGeneratedNever();
+
+                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                 entity.Property(e => e.UserName).HasMaxLength(256);
+             });
+             */
             modelBuilder.Entity<Canton>(entity =>
             {
                 entity.Property(e => e.CantonId).HasColumnName("CantonID");

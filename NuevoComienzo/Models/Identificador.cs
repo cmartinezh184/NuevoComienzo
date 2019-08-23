@@ -11,7 +11,7 @@ namespace NuevoComienzo.Models
         }
 
         public int IdentificadorId { get; set; }
-        public byte TipoIdentificadorId { get; set; }
+        public sbyte TipoIdentificadorId { get; set; }
 
         public virtual TipoIdentificador TipoIdentificador { get; set; }
         public virtual ICollection<Persona> Persona { get; set; }
