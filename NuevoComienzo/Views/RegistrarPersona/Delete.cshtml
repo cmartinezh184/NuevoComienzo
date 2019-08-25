@@ -64,13 +64,13 @@
                     @Html.DisplayNameFor(model => model.Sexo)
                 </dt>
                 <dd class="col-sm-10">
-                    @if (this.Model.Sexo == null)
+                    @if (this.Model.Sexo == "M")
                     {
-                        <p>M</p>
+                        <p>Masculino</p>
                     }
                     else
                     {
-                        <p>F</p>
+                        <p>Femenino</p>
                     }
                 </dd>
                 <dt class="col-sm-2">
