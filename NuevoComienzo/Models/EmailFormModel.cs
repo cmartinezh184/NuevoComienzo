@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace NuevoComienzo.Models
+{
+    using Microsoft.AspNetCore.Mvc;
+    using System.ComponentModel.DataAnnotations;
+
+    namespace MVCEmail.Models
+    {
+        public class EmailFormModel
+        {
+           
+           
+
+            /*
+            [Required, Display(Name = "name")]
+            public string FromName { get; set; }
+            [Required, Display(Name = "Escribe tu Correo"), EmailAddress]
+            public string FromEmail { get; set; }
+            [Required]
+            public string Message { get; set; }*/
+        }
+
+
+    }
+}

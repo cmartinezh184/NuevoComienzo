@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
 using MimeKit;
 using NuevoComienzo.Models;
 
@@ -23,7 +25,25 @@ namespace NuevoComienzo.Controllers
         public string message { get; set; }
         public IActionResult Index()
         {
-            return View(email);
+            /*var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Gabriel", "gabohernand123@gmail.com"));
+            message.To.Add(new MailboxAddress("Robert", "rsft6000@gmail.com"));
+            message.Subject= "Hola Robert";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Hola Mundo"
+            };
+
+
+            using (var client= new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("gabohernand123@gmail.com", "Rosturama20");
+                client.Send(message);
+                client.Disconnect(true);
+            }*/
+
+            return View();
         }
 
         public IActionResult AboutUs()
@@ -46,6 +66,44 @@ namespace NuevoComienzo.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Enviar([Bind("nombre, correo, mensaje")]EmailModel emailmodel, string body)
+        {
+            var nombre = emailmodel.nombre;
+            var correo = emailmodel.correo;
+            var mensaje = emailmodel.mensaje;
+
+        var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Fundación Un Nuevo Comienzo", " ")); //(Nombre del usuario, Cuenta de correo de la Fundación)
+            message.To.Add(new MailboxAddress(nombre, correo)); //A quien quieren que le llegue el correo. En este caso a la persona que lo envía. 
+            //message.Cc.Add(new MailboxAddress(nombre, correo)); //Si quiere mandar el correo a alguien más
+            message.Subject = "Email Fundación Un Nuevo Comienzo";
+
+            message.Body = new TextPart("html")
+            {
+                Text = "<b>"+nombre+"</b>"+ " ha consultado desde el correo "+"<b>"+ correo + "</b>" + " el siguiente mensaje: "+ "<br>" + "<b>" + mensaje + "</b>"+"<br>"+
+                "Gracias por contactarnos. Responderemos por este medio lo más pronto posible."+"<br>"+"Puede contactarnos también por los siguientes medios: "
+                + "<br>" +
+                "Correo: "+ "fundacionunnuevocomienzocr @gmail.com" + "<br>" +
+                "Dirección: " + "350 metros al Norte del INA de Villa Esperanza de Pavas, Las Pavas." + "<br>" +
+                "Horario de atención: " + "Lunes &mdash; Viernes 8:00am - 5:00pm" + "<br>" +
+                "Facebook: " + "<a href = 'https://www.facebook.com/Fundaci%C3%B3n-Un-Nuevo-Comienzo-CR-1929896823952715/?epa=SEARCH_BOX' target ='_blank' ><span class='icon icon-facebook' ></span><span class='text' > Visita Nuestro Facebook, aquí</span></a>" + "<br>" 
+            };
+
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("", ""); //(Cuenta de correo de la Fundación, Contraseña)
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+
+            //return RedirectToAction("ContactUs", "Enviar");
+            return View("ContactUs");
+            //return View("Index"); Si funciona
+
         }
     }
 }
