@@ -44,7 +44,7 @@ namespace NuevoComienzo.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Recordar mis credenciales en este equipo")]
             public bool RememberMe { get; set; }
         }
 
@@ -90,7 +90,7 @@ namespace NuevoComienzo.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Intento de inicio de sesi\u00f3n inv\u00e1lido");
                     return Page();
                 }
             }

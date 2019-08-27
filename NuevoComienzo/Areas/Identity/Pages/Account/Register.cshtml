@@ -1,63 +1,41 @@
-﻿
-@page
+﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Registro";
+    ViewData["Title"] = "Registrar Usuario";
 }
 
-<div class="container" style="padding-top:8%;">
+<div class="container" style="padding-top:10%;padding-bottom:5%;">
 
-
-
-    <h5>@ViewData["Title"]</h5>
+    <h1>@ViewData["Title"]</h1>
 
     <div class="row">
         <div class="col-md-4">
-            <section>
-                <!---Formulario-->
-                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                    <h6>Crea una cuenta</h6>
-                    <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <!---Correo-->
-                    <div class="form-group">
-                        <label asp-for="Input.Email">Correo Electrónico</label>
-                        <input asp-for="Input.Email" class="form-control" />
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <!---Contraseña-->
-                    <div class="form-group">
-                        <label asp-for="Input.Password">Contraseña</label>
-                        <input asp-for="Input.Password" class="form-control" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <!---Boton Confirmar-->
-                    <div class="form-group">
-                        <label asp-for="Input.ConfirmPassword">Confirmar Contraseña</label>
-                        <input asp-for="Input.ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
-            </section>
-        </div>
-        <!---Texto Bienvenido Registrarse-->
-        <div class="col-md-6 col-md-offset-2" style="padding-left:70px;">
-            <section>
-                <h4>Fundaci&oacute;n Un Nuevo Comienzo</h4>
-                <div>
-                    <p>
-                        Bienvenido al Sistema de Administraci&oacute;n, registre sus credenciales para crear su cuenta.
-                    </p>
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Cree una nueva cuenta</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">Correo</label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-            </section>
+                <div class="form-group">
+                    <label asp-for="Input.Password">Contrase&ntilde;a</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword">Confirmar Contrase&ntilde;a</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
         </div>
     </div>
-</div>
-<div>
-    <br />
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+</div>
