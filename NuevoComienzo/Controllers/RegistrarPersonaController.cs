@@ -10,20 +10,34 @@ namespace NuevoComienzo.Controllers
 {
     public class RegistrarPersonaController : Controller
     {
+        /// <summary>
+        /// Contexto de la base de datos para hacer cambios a las tabnlas
+        /// </summary>
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor del controlador
+        /// </summary>
+        /// <param name="context">Cpntexto de la base de datos a modificar</param>
         public RegistrarPersonaController(ApplicationDbContext context)
         { 
             _context = context;
         }
-        // GET: RegistrarPersona
+        /// <summary>
+        /// Metodo que muestra la vista con las tablas de personas
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
                 var persona = _context.Persona.Include(p => p.TipoPersona);
                 return View(await persona.ToListAsync());
         }
 
-        // GET: RegistrarPersona/Details/5
+        /// <summary>
+        /// Metodo que muestra toda la informacion de la persona seleccionada en la lista
+        /// </summary>
+        /// <param name="id">Identificador privado de la persona</param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
                 if (id == null)
@@ -59,7 +73,10 @@ namespace NuevoComienzo.Controllers
                 return View(persona);
         }
 
-        // GET: RegistrarPersona/Create
+        /// <summary>
+        /// Metodo que devuelve la vista para agregar personas a la base de datos
+        /// </summary>
+        /// <returns>Vista de creacion de personas</returns>
         public ActionResult Create()
         {
             ViewData["TipoIdentificadorId"] = new SelectList(_context.Set<TipoIdentificador>(), "TipoIdentificadorId", "DescTipoIdentificador");
@@ -69,7 +86,13 @@ namespace NuevoComienzo.Controllers
             return View();
         }
 
-        // POST: RegistrarPersona/Create
+        /// <summary>
+        /// Metodo que obtiene los parametros ingresados en el formulario para 
+        /// ingresar una persona a base de datos
+        /// </summary>
+        /// <param name="vm">View Model para mostrar los campos necesarios para
+        /// agregar toda la informacion de la persona</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
@@ -129,7 +152,11 @@ namespace NuevoComienzo.Controllers
             }
         }
 
-        // GET: RegistrarPersona/Edit/5
+        /// <summary>
+        /// Metodo para obtener la informacion de base de datos necesaria para editar a la persona seleccionada
+        /// </summary>
+        /// <param name="id">Identificador privado de la persona seleccionada</param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -174,7 +201,12 @@ namespace NuevoComienzo.Controllers
             return View(vm);
         }
 
-        // POST: RegistrarPersona/Edit/5
+        /// <summary>
+        /// Metodo para editar a la persona seleccionada de la tabla del index
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="vm"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Sexo,DescDireccion,Medicamentos,DistritoId,Alergias,DiagnosticoAprendizaje,DiagnosticoPsicologico,ObservacionesSupervisor,IdentificadorId,TipoIdentificadorId,Correo,Telefono,TipoPersonaId,FechaNacimiento")]RegistrarPersonaVM vm)
@@ -245,7 +277,11 @@ namespace NuevoComienzo.Controllers
             return View(persona);
         }
 
-        // GET: RegistrarPersona/Delete/5
+        /// <summary>
+        /// Metodo para obtener la informacion de la persona seleccionada de la tabla para ser borrada
+        /// </summary>
+        /// <param name="id">Identificador privado de la persona seleccionada</param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -281,7 +317,11 @@ namespace NuevoComienzo.Controllers
             return View(persona);
         }
 
-        // POST: RegistrarPersona/Delete/5
+        /// <summary>
+        /// Metodo para borrar a la persona y todos los datos relacionados con esa persona en la base de datos
+        /// </summary>
+        /// <param name="id">Identificador de la persona a borrar</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -332,6 +372,11 @@ namespace NuevoComienzo.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo para buscar si la persona existe en base de datos
+        /// </summary>
+        /// <param name="id">Identificador de la persona a buscar</param>
+        /// <returns></returns>
         private bool PersonaExists(int id)
         {
             return _context.Persona.Any(e => e.PersonaId == id);
