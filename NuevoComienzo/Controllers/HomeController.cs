@@ -29,24 +29,6 @@ namespace NuevoComienzo.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            /*var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Gabriel", "gabohernand123@gmail.com"));
-            message.To.Add(new MailboxAddress("Robert", "rsft6000@gmail.com"));
-            message.Subject= "Hola Robert";
-            message.Body = new TextPart("plain")
-            {
-                Text = "Hola Mundo"
-            };
-
-
-            using (var client= new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("gabohernand123@gmail.com", "Rosturama20");
-                client.Send(message);
-                client.Disconnect(true);
-            }*/
-
             return View();
         }
 
@@ -101,7 +83,13 @@ namespace NuevoComienzo.Controllers
             var mensaje = emailmodel.mensaje;
 
         var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Fundación Un Nuevo Comienzo", " ")); //(Nombre del usuario, Cuenta de correo de la Fundación)
+
+            /*Cambiar:
+             * From.Add("nombre Fundacion", "correo Fundacion")
+             * client.Authenticate("correo@gmail.com", "contraseña"); //(Cuenta de correo de la Fundación, Contraseña)
+                
+             */
+            message.From.Add(new MailboxAddress("Fundación Un Nuevo Comienzo", "")); //(Nombre del usuario, Cuenta de correo de la Fundación)
             message.To.Add(new MailboxAddress(nombre, correo)); //A quien quieren que le llegue el correo. En este caso a la persona que lo envía. 
             //message.Cc.Add(new MailboxAddress(nombre, correo)); //Si quiere mandar el correo a alguien más
             message.Subject = "Email Fundación Un Nuevo Comienzo";
@@ -121,7 +109,7 @@ namespace NuevoComienzo.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("", ""); //(Cuenta de correo de la Fundación, Contraseña)
+                client.Authenticate("gabohernand123@gmail.com", "Rosturama20"); //(Cuenta de correo de la Fundación, Contraseña)
                 client.Send(message);
                 client.Disconnect(true);
             }
