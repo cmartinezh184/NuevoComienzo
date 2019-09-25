@@ -99,7 +99,7 @@ namespace NuevoComienzo.Controllers
                 Text = "<b>"+nombre+"</b>"+ " ha consultado desde el correo "+"<b>"+ correo + "</b>" + " el siguiente mensaje: "+ "<br>" + "<b>" + mensaje + "</b>"+"<br>"+
                 "Gracias por contactarnos. Responderemos por este medio lo más pronto posible."+"<br>"+"Puede contactarnos también por los siguientes medios: "
                 + "<br>" +
-                "Correo: "+ "fundacionunnuevocomienzocr @gmail.com" + "<br>" +
+                "Correo: "+ "fundacionunnuevocomienzocr@gmail.com" + "<br>" +
                 "Dirección: " + "350 metros al Norte del INA de Villa Esperanza de Pavas, Las Pavas." + "<br>" +
                 "Horario de atención: " + "Lunes &mdash; Viernes 8:00am - 5:00pm" + "<br>" +
                 "Facebook: " + "<a href = 'https://www.facebook.com/Fundaci%C3%B3n-Un-Nuevo-Comienzo-CR-1929896823952715/?epa=SEARCH_BOX' target ='_blank' ><span class='icon icon-facebook' ></span><span class='text' > Visita Nuestro Facebook, aquí</span></a>" + "<br>" 
