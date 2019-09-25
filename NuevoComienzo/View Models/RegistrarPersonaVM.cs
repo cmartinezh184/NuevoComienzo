@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace NuevoComienzo.Models
 {
+    /// <summary>
+    /// View Model con los atributos que se van a utilizar para hacer 
+    /// cambios a una persona y a sus tablas relacionadas. Todos son 
+    /// atributos de otras tablas.
+    /// </summary>
     public class RegistrarPersonaVM
     {
         public string PrimerNombre { get; set; }
