@@ -89,8 +89,8 @@ namespace NuevoComienzo.Controllers
              * client.Authenticate("correo@gmail.com", "contraseña"); //(Cuenta de correo de la Fundación, Contraseña)
                 
              */
-            message.From.Add(new MailboxAddress(nombre, "fundacionunnuevocomienzocr@gmail.com")); //(Nombre del usuario, Cuenta de correo de la Fundación)
-            message.To.Add(new MailboxAddress(nombre, "cmartinezh2623@gmail.com")); //A quien quieren que le llegue el correo. En este caso a la persona que lo envía. 
+            message.From.Add(new MailboxAddress(nombre, "infonuevocomienzocr@gmail.com")); //(Nombre del usuario, Cuenta de correo de la Fundación)
+            message.To.Add(new MailboxAddress(nombre, "infonuevocomienzocr@gmail.com")); //A quien quieren que le llegue el correo. En este caso a la persona que lo envía. 
             message.Subject = "Mensaje para la Fundación Un Nuevo Comienzo";
 
             message.Body = new TextPart("html")
@@ -125,7 +125,7 @@ namespace NuevoComienzo.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("cmartinezh2623@gmail.com", "o9E3^lNNu^17"); //(Cuenta de correo de la Fundación, Contraseña)
+                client.Authenticate("infonuevocomienzo@gmail.com", "Glopez.9963"); //(Cuenta de correo de la Fundación, Contraseña)
                 client.Send(message);
                 client.Disconnect(true);
             }
@@ -133,7 +133,7 @@ namespace NuevoComienzo.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("cmartinezh2623@gmail.com", "o9E3^lNNu^17"); //(Cuenta de correo de la Fundación, Contraseña)
+                client.Authenticate("infonuevocomienzo@gmail.com", "Glopez.9963"); //(Cuenta de correo de la Fundación, Contraseña)
                 client.Send(message2);
                 client.Disconnect(true);
             }
